@@ -2,9 +2,13 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using CatalogoProdutos.Models;
 
-namespace CatalogoProdutos.Controllers;
-
- ViewBag.Nomes = new List<string>
+namespace CatalogoProdutos.Controllers
+{
+    public class HomeController : Controller
+    {
+          public IActionResult Index()
+    {
+        ViewBag.Nomes = new List<string>
         {
             "Caneta BIC", "Fone Bluetooth", "Notebook Dell",
             "Mouse Gamer", "Teclado Mecânico", "Monitor 24\"",
@@ -18,7 +22,6 @@ namespace CatalogoProdutos.Controllers;
             49.90, 179.90
         };
 
-        // Estoque
         ViewBag.Estoques = new List<int>
         {
             200, 45, 3,
@@ -28,4 +31,5 @@ namespace CatalogoProdutos.Controllers;
 
         return View();
     }
+  }
 }
