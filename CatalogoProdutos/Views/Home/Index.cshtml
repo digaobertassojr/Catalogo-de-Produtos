@@ -1,0 +1,62 @@
+﻿@{
+    var nomes   = ViewBag.Nomes   as List<string>;
+    var precos  = ViewBag.Precos  as List<double>;
+    var estoque = ViewBag.Estoques as List<int>;
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Produto</th>
+            <th>Preço</th>
+            <th>Estoque</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < nomes.Count; i++)
+        {
+            @* Condicional de cor por faixa de preço *@
+            string cssPreco;
+
+            @if (precos[i] < 100)
+            {
+                cssPreco = "preco-baixo";  // verde
+            }
+            else if (precos[i] <= 500)
+            {
+                cssPreco = "preco-medio"; // amarelo
+            }
+            else
+            {
+                cssPreco = "preco-alto";  // laranja
+            }
+
+            <tr>
+                <td>@(i + 1)</td>
+                <td>@nomes[i]</td>
+                <td>
+                    <span class="@cssPreco">
+                        R$ @precos[i].ToString("F2")
+                    </span>
+                </td>
+                <td>
+                    @if (estoque[i] == 0)
+                    {
+                        <span class="status-esgot">Esgotado</span>
+                    }
+                    else if (estoque[i] < 10)
+                    {
+                        <span class="status-low">Baixo</span>
+                    }
+                    else
+                    {
+                        <span class="status-ok">Em estoque</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>Total: @nomes.Count produtos</p>
